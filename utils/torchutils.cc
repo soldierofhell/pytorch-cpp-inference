@@ -43,13 +43,13 @@ torch::Tensor __convert_images_to_tensor(std::vector<cv::Mat> images) {
 }
 
 // Predict
-torch::Tensor __predict(std::shared_ptr<torch::jit::script::Module> model, torch::Tensor tensor) {
+torch::Tensor __predict(torch::jit::script::Module model, torch::Tensor tensor) {
 
   std::vector<torch::jit::IValue> inputs;
   inputs.push_back(tensor);
 
   // Execute the model and turn its output into a tensor.
-  torch::Tensor output = model->forward(inputs).toTensor();
+  torch::Tensor output = model.forward(inputs).toTensor();
 
   return output;
 }
@@ -99,16 +99,16 @@ std::vector<float> __get_outputs(torch::Tensor output) {
 // 1. Read model
 std::shared_ptr<torch::jit::script::Module> read_model(std::string model_path) {
 
-  std::shared_ptr<torch::jit::script::Module> model = torch::jit::load(model_path);
+  torch::jit::script::Module model = torch::jit::load(model_path);
 
-  assert(model != nullptr);
+  //assert(model != nullptr);
 
   return model;
 }
 
 // 2. Forward
 std::vector<float> forward(std::vector<cv::Mat> images,
-  std::shared_ptr<torch::jit::script::Module> model) {
+  torch::jit::script::Module model) {
 
   // 1. Convert OpenCV matrices to torch Tensor
   torch::Tensor tensor = __convert_images_to_tensor(images);
