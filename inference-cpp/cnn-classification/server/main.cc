@@ -36,7 +36,7 @@ int main(int argc, char **argv) {
   std::vector<double> std = {0.229, 0.224, 0.225};
 
   // Load Model
-  std::shared_ptr<torch::jit::script::Module> model = read_model(model_path);
+  torch::jit::script::Module model = read_model(model_path);
 
   // App
   crow::SimpleApp app;
