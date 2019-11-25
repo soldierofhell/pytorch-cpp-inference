@@ -31,7 +31,7 @@ int main(int argc, char **argv) {
   std::vector<double> std = {0.229, 0.224, 0.225};
 
   cv::Mat image = cv::imread(image_path);
-  std::shared_ptr<torch::jit::script::Module> model = read_model(model_path);
+  torch::jit::script::Module model = read_model(model_path);
 
   std::string pred, prob;
   tie(pred, prob) = infer(image, image_height, image_width, mean, std, labels, model);
