@@ -97,7 +97,7 @@ std::vector<float> __get_outputs(torch::Tensor output) {
 }
 
 // 1. Read model
-std::shared_ptr<torch::jit::script::Module> read_model(std::string model_path) {
+torch::jit::script::Module read_model(std::string model_path) {
 
   torch::jit::script::Module model = torch::jit::load(model_path);
 
